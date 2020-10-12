@@ -15,7 +15,7 @@ const donut = {
     },
     color: {
         filling: 'cornflowerblue',
-        empty: '#10101',
+        empty: '#101010',
         hole: 'black',
         line: 'white',
     },
