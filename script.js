@@ -27,11 +27,13 @@ const millisecondsPerSecond = 1000;
 const circleArcRadians = 2 * Math.PI;
 
 const input = {
-    inhaleTime: 4,
-    fullHoldTime: 1,
-    exhaleTime: 2,
-    emptyHoldTime: 1
+    inhaleTime: 500,
+    fullHoldTime: 100,
+    exhaleTime: 500,
+    emptyHoldTime: 100
 }
+
+const current = {};
 
 const target = {
     inhaleTime: 4000,
@@ -40,7 +42,44 @@ const target = {
     emptyHoldTime: 1000
 };
 
+const maxTimeChange = 500;
+
+function initializeCurrentTimes() {
+    for (const [key, value] of Object.entries(input)) {
+        current[key] = value;
+    }
+    console.log(current);
+}
+
+let isTargetReached = false;
+function updateTimings() {
+    let diffs = {};
+    let totalDeviation = 0;
+    for (const key of Object.keys(input)) {
+        const diff = target[key] - current[key];
+        diffs[key] = diff;
+        totalDeviation += Math.abs(diff);
+    }
+    
+    if(totalDeviation === 0) {
+        console.log('Reached target breathing pattern.');
+        isTargetReached = true;
+        return;
+    }
+
+    for (const key of Object.keys(input)) {
+        const diff = diffs[key];
+        const sign = Math.sign(diff);
+        const absDiff = Math.abs(diff);
+        const maxChange = (absDiff / totalDeviation) * maxTimeChange;
+        current[key] += sign * Math.min(absDiff, maxChange);
+    }
+    console.log(current);
+}
+
+
 function onLoad() {
+    initializeCurrentTimes();
     setCanvasSize();
     window.requestAnimationFrame(draw);
 }
@@ -125,7 +164,7 @@ let isInhaling = true;
 function draw(timeNow) {
     if (!startTime) startTime = timeNow;
     const timeElapsed = timeNow - startTime;
-    const targetDuration = isInhaling ? target.inhaleTime : target.exhaleTime;
+    const targetDuration = isInhaling ? current.inhaleTime : current.exhaleTime;
     const remainingTime = targetDuration - timeElapsed;
 
     const offset = donut.radius.range * Math.min(timeElapsed / targetDuration, 1);
@@ -157,11 +196,12 @@ function draw(timeNow) {
     if (remainingTime > 0) {
         window.requestAnimationFrame(draw);
     } else {
-        const holdTime = isInhaling ? target.fullHoldTime : target.emptyHoldTime;
+        const holdTime = isInhaling ? current.fullHoldTime : current.emptyHoldTime;
         //! Fails to update drawing during resize.
         setTimeout(function () {
             window.requestAnimationFrame(draw);
         }, holdTime);
+        if(!isTargetReached && !isInhaling) updateTimings();
         isInhaling = !isInhaling;
         startTime = undefined;
     }
