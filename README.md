@@ -25,4 +25,5 @@ Metaphor:
 
 Tips:
 - Focus on moving your belly button with each breath.
-- Try breathing in through your nose and out through your mouth.
+- Breathe in through your nose and out through pursed lips.
+- You can pinch one nostril closed to help slow your breathing.

@@ -11,38 +11,52 @@ const donut = {
     ratio: {
         hole: 1 / 3.5,
         padding: 1 / Math.pow(2, 4),
-        lineWidth: 1 / Math.pow(2, 7),
+        lineWidth: 1 / Math.pow(2, 6),
     },
     color: {
-        filling: 'cornflowerblue',
-        empty: '#101010',
-        hole: 'black',
-        line: 'white',
+        breath: 'cornflowerblue',
+        empty: '#151515',
+        hold: 'dodgerblue',
+        hole: 'midnightblue',
+        line: 'white'
     },
     center: {},
     radius: {}
 };
 
-const millisecondsPerSecond = 1000;
-const circleArcRadians = 2 * Math.PI;
+let phaseIndex = 0;
+const phases = ['inhale', 'holdInhale', 'exhale', 'holdExhale'];
+let phase = phases[phaseIndex];
 
-const input = {
-    inhaleTime: 500,
-    fullHoldTime: 100,
-    exhaleTime: 500,
-    emptyHoldTime: 100
+function getNextPhase() {
+    phaseIndex++;
+    if (phaseIndex > phases.length - 1) {
+        phaseIndex = 0;
+        updateTimings();
+    }
+    return phases[phaseIndex];
 }
 
-const current = {};
+const millisecondsPerSecond = 1000;
+const circleRadians = 2 * Math.PI;
+const topRadians = 1.5 * Math.PI;
 
-const target = {
-    inhaleTime: 4000,
-    fullHoldTime: 3000,
-    exhaleTime: 8000,
-    emptyHoldTime: 1000
+const input = {
+    inhaleDuration: 4000,
+    holdInhaleDuration: 3000,
+    exhaleDuration: 8000,
+    holdExhaleDuration: 1000
 };
 
-const maxTimeChange = 500;
+const target = {
+    inhaleDuration: 4000,
+    holdInhaleDuration: 3000,
+    exhaleDuration: 8000,
+    holdExhaleDuration: 1000
+};
+
+const current = {};
+const transitionSpeed = 1000;
 
 function initializeCurrentTimes() {
     for (const [key, value] of Object.entries(input)) {
@@ -52,6 +66,7 @@ function initializeCurrentTimes() {
 }
 
 let isTargetReached = false;
+
 function updateTimings() {
     let diffs = {};
     let totalDeviation = 0;
@@ -60,8 +75,8 @@ function updateTimings() {
         diffs[key] = diff;
         totalDeviation += Math.abs(diff);
     }
-    
-    if(totalDeviation === 0) {
+
+    if (totalDeviation === 0) {
         console.log('Reached target breathing pattern.');
         isTargetReached = true;
         return;
@@ -69,10 +84,9 @@ function updateTimings() {
 
     for (const key of Object.keys(input)) {
         const diff = diffs[key];
-        const sign = Math.sign(diff);
         const absDiff = Math.abs(diff);
-        const maxChange = (absDiff / totalDeviation) * maxTimeChange;
-        current[key] += sign * Math.min(absDiff, maxChange);
+        const maxChange = (absDiff / totalDeviation) * transitionSpeed;
+        current[key] += Math.sign(diff) * Math.min(absDiff, maxChange);
     }
     console.log(current);
 }
@@ -91,23 +105,23 @@ let exhaleEndTime;
 
 let inhaleDuration;
 let exhaleDuration;
-let fullHoldDuration;
-let emptyHoldDuration;
+let holdInhaleDuration;
+let holdExhaleDuration;
 
 function onKeyDown(event) {
     if (!inhaleStartTime && inhaleKeys.includes(event.key)) {
         // Inhale Start
         inhaleEndTime = 0;
         inhaleStartTime = Date.now();
-        emptyHoldDuration = inhaleStartTime - exhaleEndTime;
-        console.log('Empty Hold: ' + emptyHoldDuration);
+        holdExhaleDuration = inhaleStartTime - exhaleEndTime;
+        console.log('Empty Hold: ' + holdExhaleDuration);
         console.log('Breathing In');
     } else if (!exhaleStartTime && exhaleKeys.includes(event.key)) {
         // Exhale Start
         exhaleEndTime = 0;
         exhaleStartTime = Date.now();
-        fullHoldDuration = exhaleStartTime - inhaleEndTime;
-        console.log('Full Hold: ' + fullHoldDuration);
+        holdInhaleDuration = exhaleStartTime - inhaleEndTime;
+        console.log('Full Hold: ' + holdInhaleDuration);
         console.log('Breathing Out');
     }
 }
@@ -142,67 +156,103 @@ function setCanvasSize() {
     const size = Math.min(canvas.width, canvas.height);
     const padding = size * donut.ratio.padding;
     const lineWidth = size * donut.ratio.lineWidth;
+    const halfLineWidth = lineWidth / 2;
 
     ctx.scale(scale, scale); // Normalize coordinate system to use css pixels.
     ctx.strokeStyle = donut.color.line;
-    ctx.lineWidth = lineWidth;
+    ctx.lineCap = 'round';
 
     donut.center.x = canvas.width / 2;
     donut.center.y = canvas.height / 2;
 
-    donut.radius.max = (size - padding) / 2 - lineWidth;
+    donut.thickLineWidth = lineWidth;
+    donut.thinLineWidth = halfLineWidth;
+
+    donut.radius.max = (size - padding - lineWidth) / 2;
     donut.radius.min = donut.radius.max * donut.ratio.hole;
     donut.radius.range = donut.radius.max - donut.radius.min;
 
-    donut.radius.outerLine = donut.radius.max + (lineWidth / 2);
-    donut.radius.innerLine = donut.radius.min - (lineWidth / 2);
+    donut.radius.outerLine = donut.radius.max + halfLineWidth;
+    donut.radius.innerLine = donut.radius.min - halfLineWidth;
 }
 
 let startTime;
-let isInhaling = true;
 
 function draw(timeNow) {
     if (!startTime) startTime = timeNow;
     const timeElapsed = timeNow - startTime;
-    const targetDuration = isInhaling ? current.inhaleTime : current.exhaleTime;
-    const remainingTime = targetDuration - timeElapsed;
 
-    const offset = donut.radius.range * Math.min(timeElapsed / targetDuration, 1);
-    const radius = isInhaling ? (donut.radius.min + offset) : (donut.radius.max - offset);
+    switch (phase) {
+        case 'inhale':
+            var targetDuration = current.inhaleDuration;
+            var breathFraction = Math.min(timeElapsed / targetDuration, 1);
+            var holdFraction = 0;
+            break;
+        case 'holdInhale':
+            var targetDuration = current.holdInhaleDuration;
+            var holdFraction = Math.min(timeElapsed / targetDuration, 1);
+            var breathFraction = 1;
+            break;
+        case 'exhale':
+            var targetDuration = current.exhaleDuration;
+            var breathFraction = 1 - Math.min(timeElapsed / targetDuration, 1);
+            var holdFraction = 1;
+            break;
+        case 'holdExhale':
+            var targetDuration = current.holdExhaleDuration;
+            var holdFraction = 1 - Math.min(timeElapsed / targetDuration, 1);
+            var breathFraction = 0;
+            break;
+        default:
+            throw 'Alien breathing phase.'
+    }
+
+    const breathRadius = donut.radius.min + (donut.radius.range * breathFraction);
+    const holdRadians = topRadians + (circleRadians * holdFraction);
 
     // Clear
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.lineWidth = donut.thickLineWidth;
 
-    // Outer
+    // Outer Circle
     ctx.beginPath();
-    ctx.arc(donut.center.x, donut.center.y, donut.radius.outerLine, 0, circleArcRadians);
+    ctx.arc(donut.center.x, donut.center.y, donut.radius.outerLine, 0, circleRadians);
     ctx.fillStyle = donut.color.empty;
     ctx.fill();
     ctx.stroke();
 
-    // Filling
+    // Breath Fraction
     ctx.beginPath();
-    ctx.arc(donut.center.x, donut.center.y, radius, 0, circleArcRadians);
-    ctx.fillStyle = donut.color.filling;
+    ctx.arc(donut.center.x, donut.center.y, breathRadius, 0, circleRadians);
+    ctx.fillStyle = donut.color.breath;
     ctx.fill();
 
-    // Inner
+    // Inner Circle - Fill
     ctx.beginPath();
-    ctx.arc(donut.center.x, donut.center.y, donut.radius.innerLine, 0, circleArcRadians);
+    ctx.arc(donut.center.x, donut.center.y, donut.radius.innerLine, 0, circleRadians);
     ctx.fillStyle = donut.color.hole;
     ctx.fill();
+
+    // Hold Fraction
+    ctx.beginPath();
+    ctx.moveTo(donut.center.x, donut.center.y - donut.radius.innerLine);
+    ctx.lineTo(donut.center.x, donut.center.y);
+    ctx.arc(donut.center.x, donut.center.y, donut.radius.innerLine, topRadians, holdRadians);
+    ctx.lineTo(donut.center.x, donut.center.y);
+    ctx.fillStyle = donut.color.hold;
+    ctx.fill();
+    ctx.lineWidth = donut.thinLineWidth;
     ctx.stroke();
 
-    if (remainingTime > 0) {
-        window.requestAnimationFrame(draw);
-    } else {
-        const holdTime = isInhaling ? current.fullHoldTime : current.emptyHoldTime;
-        //! Fails to update drawing during resize.
-        setTimeout(function () {
-            window.requestAnimationFrame(draw);
-        }, holdTime);
-        if(!isTargetReached && !isInhaling) updateTimings();
-        isInhaling = !isInhaling;
+    // Inner Circle - Line
+    ctx.beginPath();
+    ctx.arc(donut.center.x, donut.center.y, donut.radius.innerLine, 0, circleRadians);
+    ctx.lineWidth = donut.thickLineWidth;
+    ctx.stroke();
+
+    if (targetDuration - timeElapsed <= 0) {
         startTime = undefined;
+        phase = getNextPhase();
     }
+    window.requestAnimationFrame(draw);
 }
