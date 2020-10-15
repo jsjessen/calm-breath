@@ -231,6 +231,7 @@ function onButtonRelease() {
 }
 
 function setCanvasSize() {
+    console.log('Resize');
     // Set actual size in memory (scaled to account for extra pixel density).
     const scale = window.devicePixelRatio;
     canvas.width = Math.floor(container.clientWidth * scale);
