@@ -231,11 +231,11 @@ function onButtonRelease() {
 }
 
 function setCanvasSize() {
-    console.log('Resize');
     // Set actual size in memory (scaled to account for extra pixel density).
-    const scale = window.devicePixelRatio;
+    const scale = 1; //window.devicePixelRatio;
     canvas.width = Math.floor(container.clientWidth * scale);
     canvas.height = Math.floor(container.clientHeight * scale);
+    console.log('Resize: ' + canvas.width + 'x' + canvas.height + ' scale=' + scale);
 
     const size = Math.min(canvas.width, canvas.height);
     const padding = size * donut.ratio.padding;
