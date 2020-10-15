@@ -1,76 +1,102 @@
+const container = document.getElementById('canvasContainer');
+const canvas = document.getElementById('circleCanvas');
+const ctx = canvas.getContext('2d');
+
+container.addEventListener('click', scrollToCanvas);
+
+function scrollToCanvas() {
+    canvas.scrollIntoView();
+}
+
+const instructions = document.getElementById('instructions');
+
+const breathButton = document.getElementById('breathButton');
+breathButton.addEventListener('mousedown', onButtonPress);
+breathButton.addEventListener('mouseup', onButtonRelease);
+
+const sliderInputs = {
+    inhaleDurationSlider: document.getElementById('inhaleDurationSlider'),
+    holdInhaleDurationSlider: document.getElementById('holdInhaleDurationSlider'),
+    exhaleDurationSlider: document.getElementById('exhaleDurationSlider'),
+    holdExhaleDurationSlider: document.getElementById('holdExhaleDurationSlider'),
+    transitionSpeedSlider: document.getElementById('transitionSpeedSlider')
+};
+const numberInputs = {
+    inhaleDurationNumber: document.getElementById('inhaleDurationNumber'),
+    holdInhaleDurationNumber: document.getElementById('holdInhaleDurationNumber'),
+    exhaleDurationNumber: document.getElementById('exhaleDurationNumber'),
+    holdExhaleDurationNumber: document.getElementById('holdExhaleDurationNumber'),
+    transitionSpeedNumber: document.getElementById('transitionSpeedNumber')
+};
+const settingsContainer = document.getElementById('settings');
+settingsContainer.addEventListener('input', onSettingInput);
+
 window.addEventListener('load', onLoad);
 window.addEventListener('resize', setCanvasSize);
-
-window.addEventListener('keydown', onKeyDown);
-window.addEventListener('keyup', onKeyUp);
 
 const inhaleKeys = ['i', 'ArrowDown'];
 const exhaleKeys = ['o', 'ArrowUp'];
 
 const donut = {
     ratio: {
-        hole: 1 / 3.5,
+        hole: 1 / 3.5, // https://www.dailymail.co.uk/sciencetech/article-2868435/The-science-DONUTS-Mathematical-formulae-reveal-make-perfect-sugar-dusted-treat-time.html
         padding: 1 / Math.pow(2, 4),
         lineWidth: 1 / Math.pow(2, 6),
     },
     color: {
-        breath: 'cornflowerblue',
-        empty: '#151515',
-        hold: 'dodgerblue',
-        hole: 'midnightblue',
-        line: 'white'
+        breath: 'cornflowerblue', // Fight Club
+        empty: '#202020', // 2020
+        hold: 'dodgerblue', // lighter
+        hole: 'midnightblue', // darker
+        line: 'white' // contrasts background color
     },
     center: {},
     radius: {}
 };
 
-let phaseIndex = 0;
-const phases = ['inhale', 'holdInhale', 'exhale', 'holdExhale'];
-let phase = phases[phaseIndex];
-
-function getNextPhase() {
-    phaseIndex++;
-    if (phaseIndex > phases.length - 1) {
-        phaseIndex = 0;
-        updateTimings();
-    }
-    return phases[phaseIndex];
-}
-
 const millisecondsPerSecond = 1000;
 const circleRadians = 2 * Math.PI;
 const topRadians = 1.5 * Math.PI;
 
-const input = {
-    inhaleDuration: 4000,
-    holdInhaleDuration: 3000,
-    exhaleDuration: 8000,
-    holdExhaleDuration: 1000
-};
-
 const target = {
-    inhaleDuration: 4000,
-    holdInhaleDuration: 3000,
-    exhaleDuration: 8000,
-    holdExhaleDuration: 1000
+    inhaleDuration: parseFloat(inhaleDurationNumber.value) * millisecondsPerSecond,
+    holdInhaleDuration: parseFloat(holdInhaleDurationNumber.value) * millisecondsPerSecond,
+    exhaleDuration: parseFloat(exhaleDurationNumber.value) * millisecondsPerSecond,
+    holdExhaleDuration: parseFloat(holdExhaleDurationNumber.value) * millisecondsPerSecond,
+    transitionSpeed: parseFloat(transitionSpeedNumber.value) * millisecondsPerSecond
 };
 
 const current = {};
-const transitionSpeed = 1000;
 
-function initializeCurrentTimes() {
-    for (const [key, value] of Object.entries(input)) {
-        current[key] = value;
+const phaseNames = {
+    inhale: 'inhale',
+    holdInhale: 'holdInhale',
+    exhale: 'exhale',
+    holdExhale: 'holdExhale'
+};
+
+function* phaseGenerator() {
+    while (true) {
+        yield phaseNames.inhale;
+        yield phaseNames.holdInhale;
+        yield phaseNames.exhale;
+        yield phaseNames.holdExhale;
+        if (!isTargetReached) updateTimings();
     }
-    console.log(current);
 }
+const phase = {
+    next: function () {
+        this.name = this.generator.next().value;
+        this.startTime = undefined;
+    }
+};
 
 let isTargetReached = false;
 
 function updateTimings() {
     let diffs = {};
     let totalDeviation = 0;
-    for (const key of Object.keys(input)) {
+    for (const key of Object.keys(current)) {
         const diff = target[key] - current[key];
         diffs[key] = diff;
         totalDeviation += Math.abs(diff);
@@ -82,20 +108,59 @@ function updateTimings() {
         return;
     }
 
-    for (const key of Object.keys(input)) {
+    for (const key of Object.keys(current)) {
         const diff = diffs[key];
         const absDiff = Math.abs(diff);
-        const maxChange = (absDiff / totalDeviation) * transitionSpeed;
+        const maxChange = (absDiff / totalDeviation) * target.transitionSpeed;
         current[key] += Math.sign(diff) * Math.min(absDiff, maxChange);
     }
     console.log(current);
 }
 
-
 function onLoad() {
-    initializeCurrentTimes();
+    loadSettings();
     setCanvasSize();
+    phase.generator = phaseGenerator();
+    phase.next();
     window.requestAnimationFrame(draw);
+}
+
+function start() {
+    phase.generator = phaseGenerator();
+    phase.next();
+    phase.next();
+    window.requestAnimationFrame(draw);
+}
+
+function onSettingInput(event) {
+    const input = event.target;
+    if(!input.checkValidity()) return;
+
+    switch (input.type) {
+        case 'range':
+            input.previousElementSibling.value = input.value;
+            break;
+        case 'number':
+            input.nextElementSibling.value = input.value;
+            break;
+        default:
+            break;
+    }
+    target[input.className] = parseFloat(input.value) * millisecondsPerSecond;
+    localStorage.setItem(input.className, input.value);
+    isTargetReached = false;
+}
+
+function loadSettings() {
+    for (const input of Object.values(numberInputs)) {
+        const savedValue = localStorage.getItem(input.className);
+        if (savedValue) input.value = savedValue;
+        target[input.className] = parseFloat(input.value) * millisecondsPerSecond;
+    }
+    for (const input of Object.values(sliderInputs)) {
+        const savedValue = localStorage.getItem(input.className);
+        if (savedValue) input.value = savedValue;
+    }
 }
 
 let inhaleStartTime;
@@ -108,44 +173,59 @@ let exhaleDuration;
 let holdInhaleDuration;
 let holdExhaleDuration;
 
-function onKeyDown(event) {
-    if (!inhaleStartTime && inhaleKeys.includes(event.key)) {
-        // Inhale Start
-        inhaleEndTime = 0;
+let isInhaling = true;
+let isInputting = false;
+
+function onButtonPress() {
+    isInputting = true;
+    isTargetReached = false;
+
+    if (isInhaling) {
+        breathButton.textContent = 'Inhaling';
         inhaleStartTime = Date.now();
-        holdExhaleDuration = inhaleStartTime - exhaleEndTime;
-        console.log('Empty Hold: ' + holdExhaleDuration);
-        console.log('Breathing In');
-    } else if (!exhaleStartTime && exhaleKeys.includes(event.key)) {
-        // Exhale Start
-        exhaleEndTime = 0;
+        inhaleEndTime = undefined;
+        current.holdExhaleDuration = inhaleStartTime - exhaleEndTime;
+        if (current.holdExhaleDuration) {
+            console.log('Hold Exhale Duration: ' + current.holdExhaleDuration + ' ms');
+        }
+    } else {
+        breathButton.textContent = 'Exhaling';
         exhaleStartTime = Date.now();
-        holdInhaleDuration = exhaleStartTime - inhaleEndTime;
-        console.log('Full Hold: ' + holdInhaleDuration);
-        console.log('Breathing Out');
+        exhaleEndTime = undefined;
+        current.holdInhaleDuration = exhaleStartTime - inhaleEndTime;
+        console.log('Hold Inhale Duration: ' + current.holdInhaleDuration + ' ms');
     }
 }
 
-function onKeyUp(event) {
-    if (!inhaleEndTime && inhaleKeys.includes(event.key)) {
-        // Inhale End
+function onButtonRelease() {
+    if (isInhaling) {
+        breathButton.textContent = 'Holding Full';
         inhaleEndTime = Date.now();
-        inhaleDuration = inhaleEndTime - inhaleStartTime;
-        inhaleStartTime = 0;
-        console.log('Inhale: ' + inhaleDuration);
-    } else if (!exhaleEndTime && exhaleKeys.includes(event.key)) {
-        // Exhale End
+        current.inhaleDuration = inhaleEndTime - inhaleStartTime;
+        inhaleStartTime = undefined;
+        console.log('Inhale Duration: ' + current.inhaleDuration + ' ms');
+        isInhaling = false;
+    } else {
+        breathButton.textContent = 'Holding Empty';
         exhaleEndTime = Date.now();
-        exhaleDuration = exhaleEndTime - exhaleStartTime;
-        exhaleStartTime = 0;
-        console.log('Exhale: ' + exhaleDuration);
+        current.exhaleDuration = exhaleEndTime - exhaleStartTime;
+        exhaleStartTime = undefined;
+        console.log('Exhale duration: ' + current.exhaleDuration + ' ms');
+        isInhaling = true;
+    }
+
+    if (current.inhaleDuration && current.holdInhaleDuration && current.exhaleDuration && current.holdExhaleDuration) {
+        inhaleStartTime = undefined;
+        exhaleStartTime = undefined;
+        inhaleEndTime = undefined;
+        exhaleEndTime = undefined;
+        breathButton.textContent = 'Press Me';
+        isInhaling = true;
+        isInputting = false;
+        scrollToCanvas();
+        start();
     }
 }
-
-
-const container = document.getElementById('canvasContainer');
-const canvas = document.getElementById('circleCanvas');
-const ctx = canvas.getContext('2d');
 
 function setCanvasSize() {
     // Set actual size in memory (scaled to account for extra pixel density).
@@ -176,30 +256,29 @@ function setCanvasSize() {
     donut.radius.innerLine = donut.radius.min - halfLineWidth;
 }
 
-let startTime;
-
 function draw(timeNow) {
-    if (!startTime) startTime = timeNow;
-    const timeElapsed = timeNow - startTime;
+    if (isInputting) return;
+    if (!phase.startTime) phase.startTime = timeNow;
+    const timeElapsed = timeNow - phase.startTime;
 
-    switch (phase) {
-        case 'inhale':
-            var targetDuration = current.inhaleDuration;
+    switch (phase.name) {
+        case phaseNames.inhale:
+            var targetDuration = current.inhaleDuration || target.inhaleDuration;
             var breathFraction = Math.min(timeElapsed / targetDuration, 1);
             var holdFraction = 0;
             break;
-        case 'holdInhale':
-            var targetDuration = current.holdInhaleDuration;
+        case phaseNames.holdInhale:
+            var targetDuration = current.holdInhaleDuration || target.holdExhaleDuration;
             var holdFraction = Math.min(timeElapsed / targetDuration, 1);
             var breathFraction = 1;
             break;
-        case 'exhale':
-            var targetDuration = current.exhaleDuration;
+        case phaseNames.exhale:
+            var targetDuration = current.exhaleDuration || target.exhaleDuration;
             var breathFraction = 1 - Math.min(timeElapsed / targetDuration, 1);
             var holdFraction = 1;
             break;
-        case 'holdExhale':
-            var targetDuration = current.holdExhaleDuration;
+        case phaseNames.holdExhale:
+            var targetDuration = current.holdExhaleDuration || target.holdExhaleDuration;
             var holdFraction = 1 - Math.min(timeElapsed / targetDuration, 1);
             var breathFraction = 0;
             break;
@@ -207,6 +286,7 @@ function draw(timeNow) {
             throw 'Alien breathing phase.'
     }
 
+    const timeRemaining = targetDuration - timeElapsed;
     const breathRadius = donut.radius.min + (donut.radius.range * breathFraction);
     const holdRadians = topRadians + (circleRadians * holdFraction);
 
@@ -250,9 +330,6 @@ function draw(timeNow) {
     ctx.lineWidth = donut.thickLineWidth;
     ctx.stroke();
 
-    if (targetDuration - timeElapsed <= 0) {
-        startTime = undefined;
-        phase = getNextPhase();
-    }
+    if (timeRemaining <= 0) phase.next();
     window.requestAnimationFrame(draw);
 }

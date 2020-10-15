@@ -1,20 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <title>Calm Breath</title>
+    <title>Don't Panic</title>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="Steadily guides you toward your desired breathing pattern.">
+    <meta name="keywords"
+        content="guided breathing, breath, breathe, breath pattern, calm, breathing, calm breathing, panic, panic attack, panicked breathing, hyperventilating, hyperventilated, hyperventilation, stressed, anxious, nervous">
+    <meta name="author" content="James Jessen">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- https://favicon.io/emoji-favicons/face-screaming-in-fear/ -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
 
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 
 <body>
-
-    <div id="canvasContainer">
-        <canvas id="circleCanvas">Breathing Guide</canvas>
+    <div id="instructions" class="container">
+        <h1>How are you breathing?</h1>
+        <ol>
+            <li>Press and hold as you <b>inhale</b></li>
+            <li>Release</li>
+            <li>Press and hold as you <b>exhale</b></li>
+            <li>Release</li>
+            <li>Press and hold as you <b>inhale</b></li>
+            <li>Release</li>
+        </ol>
+        <hr>
+        <p>Or just press rapidly in a panic</p>
+        <div id="breathButton" class="button noselect">
+            Press Me
+        </div>
     </div>
 
+    <div id="canvasContainer">
+        <canvas id="circleCanvas">
+            Please update your browser so it's compatible with HTML5 canvas.
+        </canvas>
+    </div>
+
+    <div class="container">
+        <p>How you feel affects your breathing and your breathing affects how you feel.</p>
+        <p>You can't directly control your emotions, but you can control your breathing.</p>
+        <ul>
+            <li>Imagine you're breathing in peace and breathing out fear.</li>
+            <li>Focus on moving your belly button with each breath.</li>
+            <li>Breathe in through your nose and out through pursed lips.</li>
+            <li>Pinching one nostril closed can help slow your breathing.</li>
+        </ul>
+    </div>
+
+    <div id="settings" class="container settings">
+        <label for="inhaleDurationSlider">Inhale Duration</label>
+        <input type="number" class="inhaleDuration" id="inhaleDurationNumber" min="0.1" step="0.1" value="4">
+        <input type="range" class="inhaleDuration" id="inhaleDurationSlider" min="0.1" max="10" step="0.1" value="4">
+
+        <label for="holdInhaleDurationSlider">Hold Full Duration</label>
+        <input type="number" class="holdInhaleDuration" id="holdInhaleDurationNumber" min="0.1" step="0.1" value="3">
+        <input type="range" class="holdInhaleDuration" id="holdInhaleDurationSlider" min="0.1" max="10" step="0.1"
+            value="3">
+
+        <label for="exhaleDurationSlider">Exhale Duration</label>
+        <input type="number" class="exhaleDuration" id="exhaleDurationNumber" min="0.1" step="0.1" value="8">
+        <input type="range" class="exhaleDuration" id="exhaleDurationSlider" min="0.1" max="10" step="0.1" value="8">
+
+        <label for="holdExhaleDurationSlider">Hold Empty Duration</label>
+        <input type="number" class="holdExhaleDuration" id="holdExhaleDurationNumber" min="0.1" step="0.1" value="1">
+        <input type="range" class="holdExhaleDuration" id="holdExhaleDurationSlider" min="0.1" max="10" step="0.1"
+            value="1">
+
+        <label for="transitionSpeed">Transition Speed</label>
+        <input type="number" class="transitionSpeed" id="transitionSpeedNumber" min="0" step="0.1" value="0.5">
+        <input type="range" class="transitionSpeed" id="transitionSpeedSlider" min="0" max="5" step="0.1" value="0.5">
+    </div>
 </body>
 
 </html>
