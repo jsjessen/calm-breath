@@ -119,8 +119,6 @@ div.button {
 }
 
 div.button:hover {
-    color: #000000;
-    background-color: white;
     cursor: pointer;
 }
 
