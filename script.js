@@ -179,7 +179,10 @@ let holdExhaleDuration;
 let isInhaling = true;
 let isInputting = false;
 
-function onButtonPress() {
+function onButtonPress(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    
     isInputting = true;
     isTargetReached = false;
 
@@ -200,7 +203,10 @@ function onButtonPress() {
     }
 }
 
-function onButtonRelease() {
+function onButtonRelease(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
     if (isInhaling) {
         breathButton.textContent = 'Holding Full';
         inhaleEndTime = Date.now();
