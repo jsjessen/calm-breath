@@ -13,9 +13,15 @@ const instructions = document.getElementById('instructions');
 const breathButton = document.getElementById('breathButton');
 breathButton.addEventListener('mousedown', onButtonPress);
 breathButton.addEventListener('mouseup', onButtonRelease);
+
 breathButton.addEventListener('touchstart', onButtonPress);
+breathButton.addEventListener('touchmove', ignoreEvent);
 breathButton.addEventListener('touchend', onButtonRelease);
 breathButton.addEventListener('touchcancel', onButtonRelease);
+
+function ignoreEvent(event) {
+    event.preventDefault();
+}
 
 const sliderInputs = {
     inhaleDurationSlider: document.getElementById('inhaleDurationSlider'),
@@ -181,10 +187,12 @@ let isInputting = false;
 
 function onButtonPress(event) {
     event.preventDefault();
-    event.stopPropagation();
-    
+
     isInputting = true;
     isTargetReached = false;
+
+    breathButton.style.color = 'black';
+    breathButton.style.backgroundColor = 'white';
 
     if (isInhaling) {
         breathButton.textContent = 'Inhaling';
@@ -205,7 +213,9 @@ function onButtonPress(event) {
 
 function onButtonRelease(event) {
     event.preventDefault();
-    event.stopPropagation();
+
+    breathButton.style.color = 'white';
+    breathButton.style.backgroundColor = '#101010';
 
     if (isInhaling) {
         breathButton.textContent = 'Holding Full';
