@@ -13,6 +13,9 @@ const instructions = document.getElementById('instructions');
 const breathButton = document.getElementById('breathButton');
 breathButton.addEventListener('mousedown', onButtonPress);
 breathButton.addEventListener('mouseup', onButtonRelease);
+breathButton.addEventListener('touchstart', onButtonPress);
+breathButton.addEventListener('touchend', onButtonRelease);
+breathButton.addEventListener('touchcancel', onButtonRelease);
 
 const sliderInputs = {
     inhaleDurationSlider: document.getElementById('inhaleDurationSlider'),
