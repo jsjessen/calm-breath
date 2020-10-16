@@ -144,7 +144,7 @@ function start() {
 
 function onSettingInput(event) {
     const input = event.target;
-    if(!input.checkValidity()) return;
+    if (!input.checkValidity()) return;
 
     switch (input.type) {
         case 'range':
@@ -248,28 +248,34 @@ function onButtonRelease(event) {
 }
 
 function setCanvasSize() {
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    // Set display size (css pixels).
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
+
     // Set actual size in memory (scaled to account for extra pixel density).
-    const scale = 1; //window.devicePixelRatio;
-    canvas.width = Math.floor(container.clientWidth * scale);
-    canvas.height = Math.floor(container.clientHeight * scale);
-    console.log('Resize: ' + canvas.width + 'x' + canvas.height + ' scale=' + scale);
-
-    const size = Math.min(canvas.width, canvas.height);
-    const padding = size * donut.ratio.padding;
-    const lineWidth = size * donut.ratio.lineWidth;
-    const halfLineWidth = lineWidth / 2;
-
+    var scale = window.devicePixelRatio; // Change to 1 on retina screens to see blurry canvas.
+    canvas.width = Math.floor(width * scale);
+    canvas.height = Math.floor(height * scale);
+    
     ctx.scale(scale, scale); // Normalize coordinate system to use css pixels.
     ctx.strokeStyle = donut.color.line;
     ctx.lineCap = 'round';
 
-    donut.center.x = canvas.width / 2;
-    donut.center.y = canvas.height / 2;
+    const radius = Math.min(width, height);
+    const padding = radius * donut.ratio.padding;
+    const lineWidth = radius * donut.ratio.lineWidth;
+    const halfLineWidth = lineWidth / 2;
+
+    donut.center.x = width / 2;
+    donut.center.y = height / 2;
 
     donut.thickLineWidth = lineWidth;
     donut.thinLineWidth = halfLineWidth;
 
-    donut.radius.max = (size - padding - lineWidth) / 2;
+    donut.radius.max = (radius - padding - lineWidth) / 2;
     donut.radius.min = donut.radius.max * donut.ratio.hole;
     donut.radius.range = donut.radius.max - donut.radius.min;
 
