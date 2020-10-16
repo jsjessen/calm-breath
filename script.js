@@ -1,13 +1,12 @@
 //! Created by James Jessen
 
-console.log('v1.0');
+console.log('v1.1');
 
 const container = document.getElementById('canvasContainer');
 const canvas = document.getElementById('circleCanvas');
 const ctx = canvas.getContext('2d');
 
 container.addEventListener('click', scrollToCanvas);
-container.addEventListener('touchend', scrollToCanvas);
 
 function scrollToCanvas() {
     canvas.scrollIntoView();
