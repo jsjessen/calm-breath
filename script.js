@@ -3,7 +3,7 @@ const canvas = document.getElementById('circleCanvas');
 const ctx = canvas.getContext('2d');
 
 container.addEventListener('click', scrollToCanvas);
-container.addEventListener('touchstart', scrollToCanvas);
+container.addEventListener('touchend', scrollToCanvas);
 
 function scrollToCanvas() {
     canvas.scrollIntoView();
