@@ -1,6 +1,6 @@
 //! Created by James Jessen
 
-console.log('v1.54');
+console.log('v1.55');
 
 window.addEventListener('load', onLoad);
 window.addEventListener('resize', setCanvasSize);
@@ -294,29 +294,17 @@ function setCurrentFromInput() {
 
 let savedWidth;
 let savedHeight;
+const heightTolerance = 50;
 
-function setCanvasSize(flag) {
+function setCanvasSize(event) {
     const width = document.documentElement.clientWidth;
-    const height = document.documentElement.clientHeight;
-
-    if (!flag) {
-        if (width === savedWidth && height === savedHeight){
-            return;
-        }
+    if (!event) {
+        var height = window.innerHeight;
+        if (width === savedWidth && height === savedHeight) return;
     } else {
-        if (width === savedWidth && Math.abs(height - savedHeight) < 50) {
-            return;
-        }
+        var height = document.documentElement.clientHeight;
+        if (width === savedWidth && Math.abs(height - savedHeight) < heightTolerance) return;
     }
-
-    // if (isFullscreenMode) {
-    //     var height = window.innerHeight;
-    // } else {
-    //     var height = document.documentElement.clientHeight;
-    // }
-
-    // console.log(window.innerHeight - document.documentElement.clientHeight);
-
 
     savedWidth = width;
     savedHeight = height;

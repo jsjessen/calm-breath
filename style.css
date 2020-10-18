@@ -20,6 +20,9 @@ body {
     width: 150px;
     border-color: #b54a4a;
 }
+#panicButton::before {
+    content: "Panic Button";
+}
 
 #panicButton:active {
     background-color: #b54a4a;

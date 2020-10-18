@@ -22,11 +22,12 @@
     <link rel="manifest" href="./manifest.webmanifest">
 
     <link rel="stylesheet" href="./style.css">
-    <script src="./script.js?version=1.54" defer></script>
+    <script src="./script.js?version=1.55" defer></script>
 </head>
 
 <body>
-    <div id="panicButton" class="button">Panic Button</div>
+    <!-- Text added by CSS to prevent selection during press. -->
+    <div id="panicButton" class="button" aria-label="Panic Button"></div>
 
     <div id="introduction" class="container">
         <h1>Don't Panic ― Breathe</h1>
