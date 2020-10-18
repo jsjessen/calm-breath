@@ -1,6 +1,6 @@
 //! Created by James Jessen
 
-console.log('v1.52');
+console.log('v1.53');
 
 window.addEventListener('load', onLoad);
 window.addEventListener('resize', setCanvasSize);
@@ -119,7 +119,7 @@ function logPattern(pattern, name = '') {
 let isTargetReached = false;
 
 function scrollToCanvas() {
-    setCanvasSize();
+    setCanvasSize(true);
     container.scrollIntoView();
 }
 
@@ -296,9 +296,13 @@ function setCurrentFromInput() {
 let savedWidth;
 let savedHeight;
 
-function setCanvasSize() {
+function setCanvasSize(isFullscreenMode = false) {
     const width = document.documentElement.clientWidth;
-    const height = window.innerHeight;
+    if (isFullscreenMode) {
+        var height = window.innerHeight;
+    } else {
+        var height = document.documentElement.clientHeight;
+    }
 
     if (width === savedWidth && height === savedHeight) return;
 
