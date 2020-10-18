@@ -1,10 +1,9 @@
 //! Created by James Jessen
 
-console.log('v1.3');
+console.log('v1.4');
 
 window.addEventListener('load', onLoad);
 window.addEventListener('resize', setCanvasSize);
-window.addEventListener('touchmove', setCanvasSize);
 
 const container = document.getElementById('canvasContainer');
 const canvas = document.getElementById('circleCanvas');
@@ -119,6 +118,7 @@ function logPattern(pattern, name = '') {
 let isTargetReached = false;
 
 function scrollToCanvas() {
+    setCanvasSize();
     container.scrollIntoView();
 }
 
@@ -288,21 +288,23 @@ function setCurrentFromInput() {
     logPattern(currentPattern, 'Current');
 }
 
-let currentWidth;
-let currentHeight;
+let savedWidth;
+let savedHeight;
 
 function setCanvasSize() {
-    const width = container.clientWidth;
-    const height = container.clientHeight;
+    const width = document.documentElement.clientWidth;
+    const height = document.documentElement.clientHeight;
 
-    if (width === currentWidth && height === currentHeight) return;
-
-    currentWidth = width;
-    currentHeight = height;
+    if (width === savedWidth && height === savedHeight) return;
+    
+    savedWidth = width;
+    savedHeight = height;
 
     // Set display size (css pixels).
-    canvas.style.width = width + "px";
-    canvas.style.height = height + "px";
+    container.style.width = width + 'px';
+    container.style.height = height + 'px';
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
 
     // Set actual size in memory (scaled to account for extra pixel density).
     var scale = window.devicePixelRatio; // If default of 1, will be blurry on high resolution screens
