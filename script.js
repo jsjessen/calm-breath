@@ -1,6 +1,6 @@
 //! Created by James Jessen
 
-console.log('v1.4');
+console.log('v1.5');
 
 window.addEventListener('load', onLoad);
 window.addEventListener('resize', setCanvasSize);
@@ -281,10 +281,14 @@ function onButtonRelease(event) {
 }
 
 function setCurrentFromInput() {
-    currentPattern.inhaleDuration = inhaleEndTime - inhaleStartTime;
+    const nonInhaleDuration = nonInhaleEndTime - nonInhaleStartTime;
+    const totalHoldDuration = 2 * assumedHoldDuration;
+
+    currentPattern.inhaleDuration = Math.max(inhaleEndTime - inhaleStartTime, 100);
     currentPattern.holdInhaleDuration = assumedHoldDuration;
-    currentPattern.exhaleDuration = nonInhaleEndTime - nonInhaleStartTime - (2 * assumedHoldDuration);
+    currentPattern.exhaleDuration = Math.max(nonInhaleDuration - totalHoldDuration, 100);
     currentPattern.holdExhaleDuration = assumedHoldDuration;
+
     logPattern(currentPattern, 'Current');
 }
 
