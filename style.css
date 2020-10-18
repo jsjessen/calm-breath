@@ -77,6 +77,10 @@ ul {
     max-width: 42rem;
 }
 
+#instructions {
+    max-width: 22rem;
+}
+
 div.container {
     display: inline-block;
     margin: 20px;
