@@ -1,6 +1,6 @@
 //! Created by James Jessen
 
-console.log('v1.5');
+console.log('v1.51');
 
 window.addEventListener('load', onLoad);
 window.addEventListener('resize', setCanvasSize);
@@ -297,7 +297,7 @@ let savedHeight;
 
 function setCanvasSize() {
     const width = document.documentElement.clientWidth;
-    const height = document.documentElement.clientHeight;
+    const height = window.innerHeight;
 
     if (width === savedWidth && height === savedHeight) return;
     
