@@ -10,12 +10,16 @@
         content="guided breathing, breath, breathe, breath pattern, calm, breathing, calm breathing, panic, panic attack, panicked breathing, hyperventilating, hyperventilated, hyperventilation, stressed, anxious, nervous">
     <meta name="author" content="James Jessen">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#202020">
 
     <!-- https://favicon.io/emoji-favicons/face-screaming-in-fear/ -->
     <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
-    <link rel="manifest" href="./favicon/site.webmanifest">
+
+    <!-- https://web.dev/add-manifest/ -->
+    <!-- https://developer.mozilla.org/en-US/docs/Web/Manifest -->
+    <link rel="manifest" href="./manifest.webmanifest">
 
     <link rel="stylesheet" href="./style.css">
     <script src="./script.js?version=1.53" defer></script>
@@ -109,25 +113,25 @@
             <legend>Panic Pattern</legend>
 
             <div class="settings">
-                <label for="panicInhaleDurationSlider">Inhale Duration</label>
+                <label for="panicInhaleDurationNumber">Inhale Duration</label>
                 <input type="number" data-state="inhaleDuration" class="panicInhaleDuration"
                     id="panicInhaleDurationNumber" min="0.1" step="0.1" value="0.2">
                 <input type="range" data-state="inhaleDuration" class="panicInhaleDuration"
                     id="panicInhaleDurationSlider" min="0.1" max="1" step="0.1" value="0.2">
 
-                <label for="panicHoldInhaleDurationSlider">Hold Full Duration</label>
+                <label for="panicHoldInhaleDurationNumber">Hold Full Duration</label>
                 <input type="number" data-state="holdInhaleDuration" class="panicHoldInhaleDuration"
                     id="panicHoldInhaleDurationNumber" min="0.1" step="0.1" value="0.1">
                 <input type="range" data-state="holdInhaleDuration" class="panicHoldInhaleDuration"
                     id="panicHoldInhaleDurationSlider" min="0.1" max="1" step="0.1" value="0.1">
 
-                <label for="panicExhaleDurationSlider">Exhale Duration</label>
+                <label for="panicExhaleDurationNumber">Exhale Duration</label>
                 <input type="number" data-state="exhaleDuration" class="panicExhaleDuration"
                     id="panicExhaleDurationNumber" min="0.1" step="0.1" value="0.2">
                 <input type="range" data-state="exhaleDuration" class="panicExhaleDuration"
                     id="panicExhaleDurationSlider" min="0.1" max="1" step="0.1" value="0.2">
 
-                <label for="panicHoldExhaleDurationSlider">Hold Empty Duration</label>
+                <label for="panicHoldExhaleDurationNumber">Hold Empty Duration</label>
                 <input type="number" data-state="holdExhaleDuration" class="panicHoldExhaleDuration"
                     id="panicHoldExhaleDurationNumber" min="0.1" step="0.1" value="0.1">
                 <input type="range" data-state="holdExhaleDuration" class="panicHoldExhaleDuration"
