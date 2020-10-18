@@ -1,9 +1,10 @@
 //! Created by James Jessen
 
-console.log('v1.51');
+console.log('v1.52');
 
 window.addEventListener('load', onLoad);
 window.addEventListener('resize', setCanvasSize);
+window.addEventListener('orientationchange', setCanvasSize);
 
 const container = document.getElementById('canvasContainer');
 const canvas = document.getElementById('circleCanvas');
@@ -300,7 +301,7 @@ function setCanvasSize() {
     const height = window.innerHeight;
 
     if (width === savedWidth && height === savedHeight) return;
-    
+
     savedWidth = width;
     savedHeight = height;
 
