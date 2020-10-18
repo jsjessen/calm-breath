@@ -1,29 +1,24 @@
 # Calm Breath
+**Created by James Jessen**
 
 "DON'T PANIC" ― Douglas Adams, The Hitchhiker's Guide to the Galaxy
 
-How you feel affects your breathing and your breathing affects how you feel.<br>
-While can't directly control your emotions, you can control your breathing.
+I recently had significant difficulty breathing and ended up going to the hospital. I'll never be certain whether it was COVID-19, despite testing negative, or a temporary psychosomatic disorder brought on by the events of 2020. Either way, breathing became important to me and inspired this project.
 
-A) An anxious person takes rapid shallow breaths.<br>
-B) Whereas a calm person takes slow deep breaths.
+There are many other breath guides out there but they tend to lack a couple key features:
+ - Behavior adapted to how you're currently breathing.
+ - Predictable movement so the user can time their breathing accordingly.
+   - An expanding circle gives no indication of when it will stop expanding.
+   - Non-linear easing functions look pretty, but reduce predictability.
 
-This friendly donut was created to guide you from A to B.<br>
-It will synchronize with you at A, then slowly but surely guide you to B.
+---
 
-Instructions:
-1) Press and hold as you inhale
-2) Release
-3) Press and hold as you exhale
-4) Release
-5) Breathe with the donut
+In the breathing cycle there are 4 phases:
+ - Inhale
+ - Hold Inhale
+ - Exhale
+ - Hole Exhale
 
-Metaphor: 
-- Color - Air 
-- Donut - Lungs
-- Donut hole - Mouth/nose
+Initially I tried getting the user to impart that information through complex button clicking, but it proved onerous. To simplify, I made assumptions about the hold timings, reducing the input problem to just inhale/exhale timing.
 
-Tips:
-- Focus on moving your belly button with each breath.
-- Breathe in through your nose and out through pursed lips.
-- You can pinch one nostril closed to help slow your breathing.
+With the user's current breathing pattern, it was relatively simple to make subtle changes to that pattern every cycle to nudge it toward their target pattern. My only concern is that it can be too subtle and effective, leading the user to believe it's only mirroring them, not actually doing anything.

@@ -1,6 +1,6 @@
-//! Created by James Jessen
+//! Copyright 2020 James Jessen
 
-console.log('v1.55');
+console.log('v1.56');
 
 window.addEventListener('load', onLoad);
 window.addEventListener('resize', setCanvasSize);
@@ -108,10 +108,10 @@ const state = {
 function logPattern(pattern, name = '') {
     let str = name + ' Pattern\n';
     str += '-'.repeat(str.length - 1) + '\n';
-    str += 'Inhale Duration: \t' + pattern.inhaleDuration + ' ms\n';
-    str += 'Hold Inhale Duration: \t' + pattern.holdInhaleDuration + ' ms\n';
-    str += 'Exhale Duration: \t' + pattern.exhaleDuration + ' ms\n';
-    str += 'Hold Exhale Duration: \t' + pattern.holdExhaleDuration + ' ms';
+    str += 'Inhale Duration: \t' + Math.round(pattern.inhaleDuration) + ' ms\n';
+    str += 'Hold Inhale Duration: \t' + Math.round(pattern.holdInhaleDuration) + ' ms\n';
+    str += 'Exhale Duration: \t' + Math.round(pattern.exhaleDuration) + ' ms\n';
+    str += 'Hold Exhale Duration: \t' + Math.round(pattern.holdExhaleDuration) + ' ms';
     console.log(str);
 }
 
