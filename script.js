@@ -1,9 +1,10 @@
 //! Created by James Jessen
 
-console.log('v1.2');
+console.log('v1.3');
 
 window.addEventListener('load', onLoad);
 window.addEventListener('resize', setCanvasSize);
+window.addEventListener('touchmove', setCanvasSize);
 
 const container = document.getElementById('canvasContainer');
 const canvas = document.getElementById('circleCanvas');
@@ -287,9 +288,17 @@ function setCurrentFromInput() {
     logPattern(currentPattern, 'Current');
 }
 
+let currentWidth;
+let currentHeight;
+
 function setCanvasSize() {
     const width = container.clientWidth;
     const height = container.clientHeight;
+
+    if (width === currentWidth && height === currentHeight) return;
+
+    currentWidth = width;
+    currentHeight = height;
 
     // Set display size (css pixels).
     canvas.style.width = width + "px";
