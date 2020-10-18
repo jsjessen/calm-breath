@@ -1,6 +1,6 @@
 //! Created by James Jessen
 
-console.log('v1.53');
+console.log('v1.54');
 
 window.addEventListener('load', onLoad);
 window.addEventListener('resize', setCanvasSize);
@@ -12,8 +12,7 @@ const ctx = canvas.getContext('2d');
 container.addEventListener('click', scrollToCanvas);
 
 const panicButton = document.getElementById('panicButton');
-panicButton.addEventListener('mousedown', onPanicButtonPress);
-panicButton.addEventListener('touchstart', onPanicButtonPress);
+panicButton.addEventListener('click', onPanicButtonPress);
 
 const breathButton = document.getElementById('breathButton');
 breathButton.addEventListener('mousedown', onButtonPress);
@@ -119,7 +118,7 @@ function logPattern(pattern, name = '') {
 let isTargetReached = false;
 
 function scrollToCanvas() {
-    setCanvasSize(true);
+    setCanvasSize();
     container.scrollIntoView();
 }
 
@@ -296,15 +295,28 @@ function setCurrentFromInput() {
 let savedWidth;
 let savedHeight;
 
-function setCanvasSize(isFullscreenMode = false) {
+function setCanvasSize(flag) {
     const width = document.documentElement.clientWidth;
-    if (isFullscreenMode) {
-        var height = window.innerHeight;
+    const height = document.documentElement.clientHeight;
+
+    if (!flag) {
+        if (width === savedWidth && height === savedHeight){
+            return;
+        }
     } else {
-        var height = document.documentElement.clientHeight;
+        if (width === savedWidth && Math.abs(height - savedHeight) < 50) {
+            return;
+        }
     }
 
-    if (width === savedWidth && height === savedHeight) return;
+    // if (isFullscreenMode) {
+    //     var height = window.innerHeight;
+    // } else {
+    //     var height = document.documentElement.clientHeight;
+    // }
+
+    // console.log(window.innerHeight - document.documentElement.clientHeight);
+
 
     savedWidth = width;
     savedHeight = height;
