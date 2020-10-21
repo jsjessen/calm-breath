@@ -128,6 +128,7 @@ input[type=range] {
 
 button {
     display: block;
+    width: 175px;
     padding: 1em 1.2em;
     border: 2px solid white;
     margin: 0.4em auto;
@@ -136,6 +137,7 @@ button {
     text-align: center;
     color: white;
     background-color: #101010;
+    outline: none;
 }
 
 button:hover {
@@ -144,20 +146,13 @@ button:hover {
 }
 
 #panicButton {
-    display: block;
     margin: 20px auto;
-    width: 175px;
     border-color: #b54a4a;
-    outline: none;
 }
-/* #panicButton::before {
-    content: "Panic Button";
-} */
 
 #panicButton:active {
     background-color: #b54a4a;
 }
-
 
 fieldset {
     margin: 20px 0;
