@@ -148,6 +148,7 @@ button:hover {
     margin: 20px auto;
     width: 175px;
     border-color: #b54a4a;
+    outline: none;
 }
 /* #panicButton::before {
     content: "Panic Button";
