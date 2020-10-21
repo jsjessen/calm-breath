@@ -1,6 +1,6 @@
 //! Copyright 2020 James Jessen
 
-console.log('v1.58');
+console.log('v1.59');
 
 window.addEventListener('load', onLoad);
 window.addEventListener('resize', setCanvasSize);
@@ -13,11 +13,6 @@ container.addEventListener('click', scrollToCanvas);
 
 const panicButton = document.getElementById('panicButton');
 panicButton.addEventListener('click', onPanicButtonPress);
-panicButton.addEventListener('touchstart', preventDefault);
-
-function preventDefault(event) {
-    event.preventDefault();
-}
 
 const breathButton = document.getElementById('breathButton');
 breathButton.addEventListener('mousedown', onButtonPress);
