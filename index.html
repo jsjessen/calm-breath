@@ -23,12 +23,12 @@
     <link rel="manifest" href="./manifest.webmanifest">
 
     <link rel="stylesheet" href="./style.css">
-    <script src="./script.js?version=1.57" defer></script>
+    <script src="./script.js?version=1.58" defer></script>
 </head>
 
 <body>
     <!-- Text added by CSS to prevent selection during press. -->
-    <button id="panicButton">Panic Button</button>
+    <button id="panicButton" class="noSelect">Panic Button</button>
 
     <div id="introduction" class="container">
         <h1>Don't Panic ― Breathe</h1>
@@ -54,7 +54,7 @@
     <div id="instructions" class="container">
         <h1>Starting Point</h1>
         <p>For a couple breaths, hold the button below as you inhale and release it as you exhale.</p>
-        <button id="breathButton">Hold Me</button>
+        <button id="breathButton" class="noSelect">Hold Me</button>
     </div>
 
     <div id="canvasContainer">
