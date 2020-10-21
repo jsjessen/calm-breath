@@ -1,6 +1,6 @@
 //! Copyright 2020 James Jessen
 
-console.log('v1.59');
+console.log('v1.6');
 
 window.addEventListener('load', onLoad);
 window.addEventListener('resize', setCanvasSize);
