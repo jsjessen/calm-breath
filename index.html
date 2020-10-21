@@ -23,12 +23,12 @@
     <link rel="manifest" href="./manifest.webmanifest">
 
     <link rel="stylesheet" href="./style.css">
-    <script src="./script.js?version=1.56" defer></script>
+    <script src="./script.js?version=1.57" defer></script>
 </head>
 
 <body>
     <!-- Text added by CSS to prevent selection during press. -->
-    <div id="panicButton" class="button" aria-label="Panic Button"></div>
+    <button id="panicButton">Panic Button</button>
 
     <div id="introduction" class="container">
         <h1>Don't Panic ― Breathe</h1>
@@ -54,15 +54,15 @@
     <div id="instructions" class="container">
         <h1>Starting Point</h1>
         <p>For a couple breaths, hold the button below as you inhale and release it as you exhale.</p>
-        <div id="breathButton" class="button">Hold Me</div>
+        <button id="breathButton">Hold Me</button>
     </div>
 
     <div id="canvasContainer">
         <a id="introLink" href="#introduction">Introduction</a>
+        <a id="settingsLink" href="#settings">Settings</a>
         <canvas id="circleCanvas">
             Please update your browser so it's compatible with HTML5 canvas.
         </canvas>
-        <a id="settingsLink" href="#settings">Settings</a>
     </div>
 
     <div id="settings" class="container">

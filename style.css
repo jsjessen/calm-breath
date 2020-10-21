@@ -14,20 +14,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-#panicButton {
-    display: block;
-    margin: 20px auto;
-    width: 150px;
-    border-color: #b54a4a;
-}
-#panicButton::before {
-    content: "Panic Button";
-}
-
-#panicButton:active {
-    background-color: #b54a4a;
-}
-
 #canvasContainer {
     position: relative;
 }
@@ -35,12 +21,12 @@ body {
 #introLink {
     position: absolute;
     top: 10px;
-    right: 10px;
+    left: 10px;
 }
 
 #settingsLink {
     position: absolute;
-    bottom: 10px;
+    top: 10px;
     right: 10px;
 }
 
@@ -140,7 +126,7 @@ input[type=range] {
     }
 }
 
-.button {
+button {
     display: block;
     padding: 1em 1.2em;
     border: 2px solid white;
@@ -148,15 +134,29 @@ input[type=range] {
     border-radius: 42px;
     font-size: 1.2em;
     text-align: center;
-    /* transition: all 0.25s; */
     color: white;
     background-color: #101010;
 }
 
-.button:hover {
+button:hover {
     cursor: pointer;
-    border-width: 5px;
+    background-color: #202020;
 }
+
+#panicButton {
+    display: block;
+    margin: 20px auto;
+    width: 175px;
+    border-color: #b54a4a;
+}
+/* #panicButton::before {
+    content: "Panic Button";
+} */
+
+#panicButton:active {
+    background-color: #b54a4a;
+}
+
 
 fieldset {
     margin: 20px 0;
@@ -164,10 +164,11 @@ fieldset {
 }
 
 footer {
-    margin-top: 20px;
+    margin-top: 50px;
     padding: 20px;
     background-color: #101010;
     text-align: center;
+    border-top: 2px solid white;
 }
 
 a {

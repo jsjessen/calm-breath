@@ -1,6 +1,6 @@
 //! Copyright 2020 James Jessen
 
-console.log('v1.56');
+console.log('v1.57');
 
 window.addEventListener('load', onLoad);
 window.addEventListener('resize', setCanvasSize);
@@ -118,6 +118,7 @@ function logPattern(pattern, name = '') {
 let isTargetReached = false;
 
 function scrollToCanvas() {
+    window.scrollTo(0,1);
     setCanvasSize();
     container.scrollIntoView();
 }
@@ -265,7 +266,7 @@ function onButtonRelease(event) {
     const now = Date.now();
 
     breathButton.style.color = 'white';
-    breathButton.style.backgroundColor = 'black';
+    breathButton.style.backgroundColor = '#101010';
 
     if (!inhaleStartTime) {
         breathButton.textContent = 'Exhaling';
