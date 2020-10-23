@@ -2,11 +2,11 @@
     "name": "Don't Panic - Breathe",
     "short_name": "Don't Panic",
     "start_url": "https://jsjessen.github.io/calm-breath",
+    "scope": "https://jsjessen.github.io/calm-breath",
     "description": "Subtly guides you toward a more desirable breathing pattern.",
     "theme_color": "#000000",
     "background_color": "#000000",
     "display": "standalone",
-    "scope": "/",
     "icons": [{
         "src": "images/maskable_icon.png",
         "sizes": "192x192",
