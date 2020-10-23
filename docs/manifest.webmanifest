@@ -1,6 +1,7 @@
 {
     "name": "Don't Panic - Breathe",
     "short_name": "Don't Panic",
+    "start_url": "https://jsjessen.github.io/calm-breath",
     "description": "Subtly guides you toward a more desirable breathing pattern.",
     "theme_color": "#000000",
     "background_color": "#000000",
