@@ -2,6 +2,18 @@
 
 console.log('v1.6');
 
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+            .then(registration => {
+                console.log('Service Worker is registered', registration);
+            })
+            .catch(err => {
+                console.error('Registration failed:', err);
+            });
+    });
+}
+
 window.addEventListener('load', onLoad);
 window.addEventListener('resize', setCanvasSize);
 window.addEventListener('orientationchange', setCanvasSize);
@@ -162,23 +174,7 @@ function updateTimings() {
     logPattern(currentPattern, 'Current');
 }
 
-function registerServiceWorker() {
-    // To install a service worker, you need to register it in your main JavaScript code. 
-    // Registration tells the browser where your service worker is located, 
-    // and to start installing it in the background.
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js')
-            .then(function (registration) {
-                console.log('Registration successful, scope is:', registration.scope);
-            })
-            .catch(function (error) {
-                console.log('Service worker registration failed, error:', error);
-            });
-    }
-}
-
 function onLoad() {
-    registerServiceWorker();
     loadSettings();
     setCanvasSize();
     setCurrentToTarget();
