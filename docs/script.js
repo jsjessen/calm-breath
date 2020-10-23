@@ -4,7 +4,7 @@ console.log('v1.6');
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js', { scope: '/' })
+        navigator.serviceWorker.register('service-worker.js', { scope: '/calm-breath/' })
             .then(registration => {
                 console.log('Service Worker is registered', registration);
             })

@@ -6,7 +6,7 @@
     "theme_color": "#000000",
     "background_color": "#000000",
     "display": "standalone",
-    "scope": "/",
+    "scope": "/calm-breath/",
     "icons": [{
         "src": "images/maskable_icon.png",
         "sizes": "192x192",
