@@ -7,9 +7,10 @@
     "display": "standalone",
     "scope": "/app/",
     "icons": [{
-        "src": "images/android-chrome-192x192.png",
+        "src": "images/maskable_icon.png",
         "sizes": "192x192",
-        "type": "image/png"
+        "type": "image/png",
+        "purpose": "any maskable"
     }, {
         "src": "images/android-chrome-512x512.png",
         "sizes": "512x512",
@@ -29,10 +30,6 @@
     }, {
         "src": "images/favicon-32x32.png",
         "sizes": "32x32",
-        "type": "image/png"
-    }, {
-        "src": "images/maskable_icon.png",
-        "sizes": "192x192",
         "type": "image/png"
     }]
 }
