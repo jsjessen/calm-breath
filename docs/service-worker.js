@@ -1,7 +1,6 @@
 const filesToCache = [
   '/',
   'style/main.css',
-  'images/maskable_icon.png',
   'index.html',
   'pages/offline.html',
   'pages/404.html'
