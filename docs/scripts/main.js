@@ -1,19 +1,5 @@
 //! Copyright 2020 James Jessen
 
-console.log('v1.6');
-
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-            .then(registration => {
-                console.log('Service Worker is registered', registration);
-            })
-            .catch(err => {
-                console.error('Registration failed:', err);
-            });
-    });
-}
-
 window.addEventListener('load', onLoad);
 window.addEventListener('resize', setCanvasSize);
 window.addEventListener('orientationchange', setCanvasSize);

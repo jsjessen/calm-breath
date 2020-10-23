@@ -24,8 +24,21 @@
     <!-- https://web.dev/add-manifest/ -->
     <link rel="manifest" href="manifest.webmanifest">
 
-    <link rel="stylesheet" href="style/main.css">
-    <script src="script.js?version=1.6" defer></script>
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="scripts/main.js" defer></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker is registered', registration);
+                    })
+                    .catch(err => {
+                        console.error('Registration failed:', err);
+                    });
+            });
+        }
+    </script>
 </head>
 
 <body>
