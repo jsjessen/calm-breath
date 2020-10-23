@@ -39,6 +39,10 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   console.log('Fetch event for ', event.request.url);
+  if (!event.request.url.startsWith('http')) {
+    console.log('Skipping nonconforming request');
+    return;
+  }
   event.respondWith(
     caches.match(event.request)
     .then(response => {
