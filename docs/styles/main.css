@@ -144,7 +144,7 @@ button:hover {
 
 button.active {
     color: black;
-    background-color: cornflowerblue;
+    background-color: dodgerblue;
 }
 
 #panicButton {
