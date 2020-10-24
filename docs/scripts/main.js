@@ -10,6 +10,7 @@ const ctx = canvas.getContext('2d');
 container.addEventListener('click', scrollToCanvas);
 
 const panicButton = document.getElementById('panicButton');
+panicButton.addEventListener('click', onPanicButtonPress);
 panicButton.addEventListener('touchstart', onPanicButtonPress);
 
 const breathButton = document.getElementById('breathButton');
