@@ -42,33 +42,34 @@
 </head>
 
 <body>
-    <button id="panicButton" class="noSelect">Panic Button</button>
-
     <div id="introduction" class="container">
-        <h1>Don't Panic ― Breathe</h1>
-        <p>If you're panicking, immediately press the panic button above.</p>
+        <h1>Don't Panic</h1>
+        <p>If you're panicking, immediately press the panic button.</p>
+        <button id="panicButton" class="noSelect">Panic Button</button>
+    </div>
+
+    <div id="instructions" class="container">
+        <h1>Breathe</h1>
         <p>
-            Otherwise, it would be useful to learn how you're currently breathing. 
-            Then you can be guided from that starting point to your 
+            Otherwise, it would be useful to learn how you're currently breathing.
+            With that as a starting point, you can be subtly guided to your
             <a href=#settings>desired breathing pattern</a>.
         </p>
-        <hr>
+        <p>For a couple breaths, hold the button below as you inhale and release it as you exhale.</p>
+        <button id="breathButton" class="noSelect">Hold Me</button>
+    </div>
+
+    <div id="tips" class="container">
+        <h1>Tips</h1>
         <p>
             How you feel affects your breathing and your breathing affects how you feel.
             You can't directly control your emotions, but you can control your breathing.
         </p>
-        <p>Tips:</p>
         <ul>
             <li>Focus on moving your belly button with each breath.</li>
             <li>Breathe in through your nose and out through pursed lips.</li>
             <li>Imagine you're breathing in serenity and breathing out anxiety.</li>
         </ul>
-    </div>
-
-    <div id="instructions" class="container">
-        <h1>Starting Point</h1>
-        <p>For a couple breaths, hold the button below as you inhale and release it as you exhale.</p>
-        <button id="breathButton" class="noSelect">Hold Me</button>
     </div>
 
     <div id="canvasContainer">
@@ -155,7 +156,7 @@
         </fieldset>
     </div>
 
-    <a href="#introduction" class="center">Introduction</a>
+    <a href="#instructions" class="center">Back to top</a>
 
     <footer>
         <p>Copyright 2020 James Jessen<br>All rights reserved</p>

@@ -1,7 +1,3 @@
-[hidden] {
-    display: none;
-}
-
 html,
 body {
     margin: 0;
@@ -17,23 +13,7 @@ body {
     color: white;
     background-color: black;
     font-family: Arial, sans-serif;
-    padding-top: 1px;
-}
-
-#canvasContainer {
-    position: relative;
-}
-
-#introLink {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-}
-
-#settingsLink {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    text-align: center;
 }
 
 #settings {
@@ -69,12 +49,17 @@ ul {
 }
 
 #introduction {
-    text-align: left;
-    max-width: 42rem;
+    display: inline-block;
+    margin: 0;
+    margin-top: 5px;
 }
 
 #instructions {
-    max-width: 22rem;
+    max-width: 30rem;
+}
+
+#tips {
+    max-width: 40rem;
 }
 
 .center {
@@ -89,6 +74,7 @@ div.container {
     border: 2px solid white;
     border-radius: 20px;
     background-color: #202020;
+    text-align: left;
 }
 
 .settings {
@@ -139,7 +125,7 @@ input[type=range] {
 
 button {
     display: block;
-    width: 175px;
+    width: 200px;
     padding: 1em 1.2em;
     border: 2px solid white;
     margin: 0.4em auto;
