@@ -12,6 +12,7 @@ body {
     color: white;
     background-color: black;
     font-family: Arial, sans-serif;
+    padding-top: 1px; 
 }
 
 #canvasContainer {
