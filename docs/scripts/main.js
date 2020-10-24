@@ -249,7 +249,8 @@ function onButtonPress(event) {
     event.preventDefault();
     const now = Date.now();
 
-    breathButton.classList.add("active");
+    breathButton.classList.remove("exhaling");
+    breathButton.classList.add("inhaling");
     breathButton.textContent = 'Inhaling';
 
     if (!isInputting) {
@@ -267,12 +268,14 @@ function onButtonRelease(event) {
     event.preventDefault();
     const now = Date.now();
 
-    breathButton.classList.remove("active");
+    breathButton.classList.remove("inhaling");
 
     if (!inhaleStartTime) {
+        breathButton.classList.add("exhaling");
         breathButton.textContent = 'Exhaling';
         nonInhaleStartTime = now;
     } else {
+        breathButton.classList.remove("exhaling");
         breathButton.textContent = breathButtonText;
         inhaleEndTime = now;
         isInputting = false;

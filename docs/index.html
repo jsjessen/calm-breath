@@ -5,7 +5,7 @@
 <head>
     <title>Don't Panic - Breathe</title>
 
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="description" content="Intelligently guides you to your desired breathing pattern.">
     <meta name="keywords"
         content="guided breathing, breath, breathe, breath pattern, calm, breathing, calm breathing, panic, panic attack, panicked breathing, hyperventilating, hyperventilated, hyperventilation, stressed, anxious, nervous">
@@ -45,7 +45,7 @@
     <div id="introduction" class="container">
         <h1>Don't Panic</h1>
         <p>If you're panicking, press the panic button.</p>
-        <button id="panicButton" class="noSelect">Panic Button</button>
+        <button id="panicButton">Panic Button</button>
     </div>
 
     <div id="instructions" class="container">
@@ -56,7 +56,7 @@
             <a href=#settings>desired breathing pattern</a>.
         </p>
         <p>For a couple breaths, hold the button below as you inhale and release it as you exhale.</p>
-        <button id="breathButton" class="noSelect">Hold Me</button>
+        <button id="breathButton">Hold Me</button>
     </div>
 
     <div id="tips" class="container">
@@ -66,9 +66,9 @@
             You can't directly control your emotions, but you can control your breathing.
         </p>
         <ul>
-            <li>Focus on moving your belly button with each breath.</li>
-            <li>Breathe in through your nose and out through pursed lips.</li>
-            <li>Imagine you're breathing in warm healing light and breathing out blight.</li>
+            <li>Fill your belly with each breath.</li>
+            <li>Breathe through your nose whenever possible.</li>
+            <li>Imagine you're breathing in healing light and breathing out blight.</li>
         </ul>
     </div>
 
@@ -85,13 +85,13 @@
 
             <div class="settings">
                 <label for="transitionSpeedNumber">Guidance Rate</label>
-                <input type="number" class="transitionSpeed" id="transitionSpeedNumber" min="0" step="0.1" value="0.5">
-                <input type="range" class="transitionSpeed" id="transitionSpeedSlider" min="0" max="5" step="0.1"
-                    value="0.5">
+                <input type="number" class="transitionSpeed" id="transitionSpeedNumber" min="0" step="0.1" value="0.8">
+                <input type="range" class="transitionSpeed" id="transitionSpeedSlider" min="0" max="2" step="0.1"
+                    value="0.8">
 
                 <label for="holdDurationNumber">Initial Hold Duration</label>
                 <input type="number" class="holdDuration" id="holdDurationNumber" min="0" step="0.1" value="0.2">
-                <input type="range" class="holdDuration" id="holdDurationSlider" min="0" max="5" step="0.1" value="0.2">
+                <input type="range" class="holdDuration" id="holdDurationSlider" min="0" max="2" step="0.1" value="0.2">
             </div>
         </fieldset>
 
@@ -103,7 +103,7 @@
                 <input type="number" data-state="inhaleDuration" class="targetInhaleDuration"
                     id="targetInhaleDurationNumber" min="0.1" step="0.1" value="5">
                 <input type="range" data-state="inhaleDuration" class="targetInhaleDuration"
-                    id="targetInhaleDurationSlider" min="0.1" max="20" step="0.1" value="5">
+                    id="targetInhaleDurationSlider" min="0.1" max="10" step="0.1" value="4">
 
                 <label for="targetHoldInhaleDurationNumber">Hold Full Duration</label>
                 <input type="number" data-state="holdInhaleDuration" class="targetHoldInhaleDuration"
@@ -115,13 +115,13 @@
                 <input type="number" data-state="exhaleDuration" class="targetExhaleDuration"
                     id="targetExhaleDurationNumber" min="0.1" step="0.1" value="10">
                 <input type="range" data-state="exhaleDuration" class="targetExhaleDuration"
-                    id="targetExhaleDurationSlider" min="0.1" max="20" step="0.1" value="10">
+                    id="targetExhaleDurationSlider" min="0.1" max="10" step="0.1" value="4">
 
                 <label for="targetHoldExhaleDurationNumber">Hold Empty Duration</label>
                 <input type="number" data-state="holdExhaleDuration" class="targetHoldExhaleDuration"
                     id="targetHoldExhaleDurationNumber" min="0.1" step="0.1" value="2">
                 <input type="range" data-state="holdExhaleDuration" class="targetHoldExhaleDuration"
-                    id="targetHoldExhaleDurationSlider" min="0.1" max="10" step="0.1" value="2">
+                    id="targetHoldExhaleDurationSlider" min="0.1" max="10" step="0.1" value="4">
             </div>
         </fieldset>
 
@@ -159,7 +159,7 @@
     <a href="#instructions" class="center">Back to top</a>
 
     <footer>
-        <p>Copyright 2020 James Jessen<br>All rights reserved</p>
+        <p>© 2020 James Jessen - All Rights Reserved</p>
         <a href="https://github.com/jsjessen">Donate</a> |
         <a href="https://github.com/jsjessen/calm-breath">Source</a> |
         <a href="mailto:jsjessen@gmail.com?subject=[calm-breath]">Contact</a>
