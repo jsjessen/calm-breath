@@ -46,11 +46,11 @@
 
     <div id="introduction" class="container">
         <h1>Don't Panic ― Breathe</h1>
-        <p>If you're too panicked to keep reading, immediately press the panic button above.</p>
+        <p>If you're panicking, immediately press the panic button above.</p>
         <p>
-            Otherwise, it would be helpful to learn
-            how you're currently breathing to establish your starting point.
-            Then you can be subtly guided from there to a more desirable breathing pattern.
+            Otherwise, it would be useful to learn how you're currently breathing. 
+            Then you can be guided from that starting point to your 
+            <a href=#settings>desired breathing pattern</a>.
         </p>
         <hr>
         <p>
@@ -72,8 +72,6 @@
     </div>
 
     <div id="canvasContainer">
-        <a id="introLink" href="#introduction">Introduction</a>
-        <a id="settingsLink" href="#settings">Settings</a>
         <canvas id="circleCanvas">
             Failed to load primary site feature.
             Try updating your browser.
@@ -86,9 +84,9 @@
 
             <div class="settings">
                 <label for="transitionSpeedNumber">Guidance Rate</label>
-                <input type="number" class="transitionSpeed" id="transitionSpeedNumber" min="0" step="0.1" value="1">
+                <input type="number" class="transitionSpeed" id="transitionSpeedNumber" min="0" step="0.1" value="0.8">
                 <input type="range" class="transitionSpeed" id="transitionSpeedSlider" min="0" max="5" step="0.1"
-                    value="1">
+                    value="0.8">
 
                 <label for="holdDurationNumber">Initial Hold Duration</label>
                 <input type="number" class="holdDuration" id="holdDurationNumber" min="0" step="0.1" value="0.2">
@@ -157,11 +155,13 @@
         </fieldset>
     </div>
 
+    <a href="#introduction" class="center">Introduction</a>
+
     <footer>
         <p>Copyright 2020 James Jessen<br>All rights reserved</p>
         <a href="https://github.com/jsjessen">Donate</a> |
-        <a href="https://github.com/jsjessen/calm-breath">Open Source</a> |
-        <a href="https://github.com/jsjessen">Contact</a>
+        <a href="https://github.com/jsjessen/calm-breath">Source</a> |
+        <a href="mailto:jsjessen@gmail.com?subject=[calm-breath]">Contact</a>
     </footer>
 </body>
 

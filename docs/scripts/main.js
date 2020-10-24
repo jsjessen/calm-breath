@@ -118,7 +118,10 @@ let isTargetReached = false;
 
 function scrollToCanvas() {
     setCanvasSize();
-    container.scrollIntoView();
+    container.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
 }
 
 function copyObjectProperties(from, to) {
