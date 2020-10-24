@@ -142,8 +142,12 @@ button:hover {
     background-color: midnightblue;
 }
 
+button.active {
+    color: black;
+    background-color: cornflowerblue;
+}
+
 #panicButton {
-    margin: 20px auto;
     border-color: #b54a4a;
 }
 

@@ -233,6 +233,8 @@ function onPanicButtonPress(event) {
     event.preventDefault();
     setCurrentToPanic();
     scrollToCanvas();
+    state.generator = stateGenerator();
+    window.requestAnimationFrame(draw);
 }
 
 let inhaleStartTime;
@@ -247,8 +249,7 @@ function onButtonPress(event) {
     event.preventDefault();
     const now = Date.now();
 
-    breathButton.style.color = 'black';
-    breathButton.style.backgroundColor = 'white';
+    breathButton.classList.add("active");
     breathButton.textContent = 'Inhaling';
 
     if (!isInputting) {
@@ -266,8 +267,7 @@ function onButtonRelease(event) {
     event.preventDefault();
     const now = Date.now();
 
-    breathButton.style.color = 'white';
-    breathButton.style.backgroundColor = '#101010';
+    breathButton.classList.remove("active");
 
     if (!inhaleStartTime) {
         breathButton.textContent = 'Exhaling';
