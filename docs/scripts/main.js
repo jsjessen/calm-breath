@@ -1,4 +1,4 @@
-//! Copyright 2020 James Jessen
+//! Copyright 2020 James Jessen. All rights reserved.
 
 window.addEventListener('load', onLoad);
 window.addEventListener('resize', setCanvasSize);
@@ -10,7 +10,7 @@ const ctx = canvas.getContext('2d');
 container.addEventListener('click', scrollToCanvas);
 
 const panicButton = document.getElementById('panicButton');
-panicButton.addEventListener('click', onPanicButtonPress);
+panicButton.addEventListener('touchstart', onPanicButtonPress);
 
 const breathButton = document.getElementById('breathButton');
 breathButton.addEventListener('mousedown', onButtonPress);

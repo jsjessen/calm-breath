@@ -3,6 +3,7 @@ const filesToCache = [
   'styles/main.css',
   'scripts/main.js',
   'index.html',
+  'manifest.webmanifest',
   'pages/offline.html',
   'pages/404.html'
 ];
