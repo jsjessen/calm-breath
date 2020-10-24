@@ -8,7 +8,8 @@ const filesToCache = [
   'pages/404.html'
 ];
 
-const staticCacheName = 'pages-cache-v1.0';
+const staticCacheName = 'cache-v1.0';
+console.log(staticCacheName);
 
 self.addEventListener('install', event => {
   console.log('Attempting to install service worker and cache static assets');
