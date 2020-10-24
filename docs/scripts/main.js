@@ -64,7 +64,7 @@ const donut = {
         hold: 'dodgerblue', // lighter
         hole: 'midnightblue', // darker
         line: 'white', // contrasts background color
-        text: 'rgba(255, 255, 255, 0.8)'
+        text: 'rgba(255, 255, 255, 0.9)'
     },
     center: {},
     radius: {},
