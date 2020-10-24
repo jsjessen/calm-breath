@@ -63,8 +63,8 @@ ul {
 }
 
 .center {
-    display: block;
-    text-align: center;
+    display: inline-block;
+    margin: 10px auto;
 }
 
 div.container {
