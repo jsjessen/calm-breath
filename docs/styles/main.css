@@ -31,6 +31,7 @@ legend {
 }
 
 p,
+a,
 li,
 label {
     font-size: calc(1.00rem + 0.25vw);
