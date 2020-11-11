@@ -178,6 +178,7 @@ function start() {
     state.generator = stateGenerator();
     state.next();
     state.next();
+    state.next();
     window.requestAnimationFrame(draw);
 }
 
@@ -364,7 +365,7 @@ function draw(timeNow) {
 
     switch (state.name) {
         case states.inhale:
-            var text = 'In';
+            var text = 'Inhale';
             var targetDuration = currentPattern.inhaleDuration;
             var breathFraction = Math.min(timeElapsed / targetDuration, 1);
             var holdFraction = 0;
@@ -376,7 +377,7 @@ function draw(timeNow) {
             var breathFraction = 1;
             break;
         case states.exhale:
-            var text = 'Out';
+            var text = 'Exhale';
             var targetDuration = currentPattern.exhaleDuration;
             var breathFraction = 1 - Math.min(timeElapsed / targetDuration, 1);
             var holdFraction = 1;
