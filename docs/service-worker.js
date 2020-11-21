@@ -1,14 +1,14 @@
 const filesToCache = [
   '/',
-  'styles/main.css',
-  'scripts/main.js',
+  'styles/main.min.css',
+  'scripts/main.min.js',
   'index.html',
   'manifest.webmanifest',
   'pages/offline.html',
   'pages/404.html'
 ];
 
-const staticCacheName = 'cache-v1.5.0';
+const staticCacheName = 'cache-v1.5.1';
 console.log(staticCacheName);
 
 self.addEventListener('install', event => {
