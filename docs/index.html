@@ -3,6 +3,16 @@
 <html lang="en">
 
 <head>
+    <title>Don't Panic - Breathe</title>
+
+    <meta charset="utf-8">
+    <meta name="description" content="Intelligently guides you to your desired breathing pattern.">
+    <meta name="keywords"
+        content="guided breathing, breath, breathe, breath pattern, calm, breathing, calm breathing, panic, panic attack, panicked breathing, hyperventilating, hyperventilated, hyperventilation, stressed, anxious, nervous">
+    <meta name="author" content="James Jessen">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-S9XNFKR58N"></script>
     <script>
@@ -16,15 +26,20 @@
         gtag('config', 'G-S9XNFKR58N');
     </script>
 
-    <title>Don't Panic - Breathe</title>
-
-    <meta charset="utf-8">
-    <meta name="description" content="Intelligently guides you to your desired breathing pattern.">
-    <meta name="keywords"
-        content="guided breathing, breath, breathe, breath pattern, calm, breathing, calm breathing, panic, panic attack, panicked breathing, hyperventilating, hyperventilated, hyperventilation, stressed, anxious, nervous">
-    <meta name="author" content="James Jessen">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#000000">
+    <!-- Service worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker is registered', registration);
+                    })
+                    .catch(err => {
+                        console.error('Registration failed:', err);
+                    });
+            });
+        }
+    </script>
 
     <!-- https://web.dev/canonical/ -->
     <link rel="canonical" href="https://jsjessen.github.io/calm-breath" />
@@ -39,25 +54,12 @@
 
     <link rel="stylesheet" href="styles/main.css">
     <script src="scripts/main.js" defer></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('service-worker.js')
-                    .then(registration => {
-                        console.log('Service Worker is registered', registration);
-                    })
-                    .catch(err => {
-                        console.error('Registration failed:', err);
-                    });
-            });
-        }
-    </script>
 </head>
 
 <body>
     <div id="introduction" class="container">
         <h1>Don't Panic</h1>
-        <p>If you're panicking, press the panic button.</p>
+        <p>Press if you're feeling impatient and breathing rapidly.</p>
         <button id="panicButton">Panic Button</button>
     </div>
 
@@ -68,13 +70,17 @@
             With that as a starting point, you can be intelligently guided to your
             <a href=#settings>desired breathing pattern</a>.
         </p>
-        <ol>
-            <li><b>Hold</b> the button as you <b>inhale</b>.</li>
-            <li><b>Release</b> the button as you <b>exhale</b>.</li>
-            <li><b>Hold</b> the button as you <b>inhale</b>.</li>
-            <li><b>Release</b> the button as you <b>exhale</b>.</li>
-        </ol>
+        <p>
+            To establish your starting point, first become aware of your breathing, but don't try to change it just yet.
+            Then for a couple breaths, hold the button while you're inhaling and release it as you start exhaling.
+        </p>
         <button id="breathButton">Hold Me</button>
+        <ol class="center">
+            <li>Inhaling — hold button</li>
+            <li>Exhaling — release button</li>
+            <li>Inhaling — hold button</li>
+            <li>Exhaling — release button</li>
+        </ol>
     </div>
 
     <div id="tips" class="container">
@@ -108,8 +114,8 @@
                     value="0.8">
 
                 <label for="holdDurationNumber">Initial Hold Duration</label>
-                <input type="number" class="holdDuration" id="holdDurationNumber" min="0" step="0.1" value="0.2">
-                <input type="range" class="holdDuration" id="holdDurationSlider" min="0" max="2" step="0.1" value="0.2">
+                <input type="number" class="holdDuration" id="holdDurationNumber" min="0" step="0.1" value="0.3">
+                <input type="range" class="holdDuration" id="holdDurationSlider" min="0" max="2" step="0.1" value="0.3">
             </div>
         </fieldset>
 
@@ -149,29 +155,30 @@
             <div class="settings">
                 <label for="panicInhaleDurationNumber">Inhale Duration</label>
                 <input type="number" data-state="inhaleDuration" class="panicInhaleDuration"
-                    id="panicInhaleDurationNumber" min="0.1" step="0.1" value="0.1">
+                    id="panicInhaleDurationNumber" min="0.1" step="0.1" value="0.4">
                 <input type="range" data-state="inhaleDuration" class="panicInhaleDuration"
-                    id="panicInhaleDurationSlider" min="0.1" max="1" step="0.1" value="0.1">
+                    id="panicInhaleDurationSlider" min="0.1" max="1" step="0.1" value="0.4">
 
                 <label for="panicHoldInhaleDurationNumber">Hold Full Duration</label>
                 <input type="number" data-state="holdInhaleDuration" class="panicHoldInhaleDuration"
-                    id="panicHoldInhaleDurationNumber" min="0.1" step="0.1" value="0.1">
+                    id="panicHoldInhaleDurationNumber" min="0.1" step="0.1" value="0.2">
                 <input type="range" data-state="holdInhaleDuration" class="panicHoldInhaleDuration"
-                    id="panicHoldInhaleDurationSlider" min="0.1" max="1" step="0.1" value="0.1">
+                    id="panicHoldInhaleDurationSlider" min="0.1" max="1" step="0.1" value="0.2">
 
                 <label for="panicExhaleDurationNumber">Exhale Duration</label>
                 <input type="number" data-state="exhaleDuration" class="panicExhaleDuration"
-                    id="panicExhaleDurationNumber" min="0.1" step="0.1" value="0.1">
+                    id="panicExhaleDurationNumber" min="0.1" step="0.1" value="0.4">
                 <input type="range" data-state="exhaleDuration" class="panicExhaleDuration"
-                    id="panicExhaleDurationSlider" min="0.1" max="1" step="0.1" value="0.1">
+                    id="panicExhaleDurationSlider" min="0.1" max="1" step="0.1" value="0.4">
 
                 <label for="panicHoldExhaleDurationNumber">Hold Empty Duration</label>
                 <input type="number" data-state="holdExhaleDuration" class="panicHoldExhaleDuration"
-                    id="panicHoldExhaleDurationNumber" min="0.1" step="0.1" value="0.1">
+                    id="panicHoldExhaleDurationNumber" min="0.1" step="0.1" value="0.2">
                 <input type="range" data-state="holdExhaleDuration" class="panicHoldExhaleDuration"
-                    id="panicHoldExhaleDurationSlider" min="0.1" max="1" step="0.1" value="0.1">
+                    id="panicHoldExhaleDurationSlider" min="0.1" max="1" step="0.1" value="0.2">
             </div>
         </fieldset>
+        <i>All values are in seconds.</i>
     </div>
 
     <a href="#instructions" class="center">Back to top</a>

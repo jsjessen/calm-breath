@@ -18,6 +18,7 @@ body {
 
 #settings {
     max-width: 800px;
+    text-align: center;
 }
 
 h1 {
@@ -35,6 +36,7 @@ a,
 li,
 label {
     font-size: calc(1.00rem + 0.25vw);
+    text-align: left;
 }
 
 input {
@@ -68,7 +70,7 @@ div.container {
     border: 2px solid white;
     border-radius: 20px;
     background-color: #202020;
-    text-align: left;
+    text-align: center;
 }
 
 .settings {
@@ -166,6 +168,10 @@ footer {
     border-top: 2px solid white;
 }
 
+footer p {
+    text-align: center;
+}
+
 a {
-    color: dodgerblue;
+    color: cornflowerblue;
 }
