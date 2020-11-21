@@ -104,6 +104,12 @@ const state = {
     }
 };
 
+const isDebugging = false;
+
+function debugLog(message) {
+    if (isDebugging) console.log(message);
+}
+
 function logPattern(pattern, name = '') {
     let str = name + ' Pattern\n';
     str += '-'.repeat(str.length - 1) + '\n';
@@ -111,7 +117,7 @@ function logPattern(pattern, name = '') {
     str += 'Hold Inhale Duration: \t' + Math.round(pattern.holdInhaleDuration) + ' ms\n';
     str += 'Exhale Duration: \t' + Math.round(pattern.exhaleDuration) + ' ms\n';
     str += 'Hold Exhale Duration: \t' + Math.round(pattern.holdExhaleDuration) + ' ms';
-    console.log(str);
+    debugLog(str);
 }
 
 let isTargetReached = false;
@@ -150,7 +156,7 @@ function updateTimings() {
     }
 
     if (totalDeviation === 0) {
-        console.log('Reached target breathing pattern.');
+        debugLog('Reached target breathing pattern.');
         isTargetReached = true;
         return;
     }
@@ -213,7 +219,7 @@ function onSettingInput(event) {
     }
     readSetting(input);
     localStorage.setItem(input.className, input.value);
-    console.log(input.className + ' => ' + input.value);
+    debugLog(input.className + ' => ' + input.value);
 }
 
 function loadSettings() {
