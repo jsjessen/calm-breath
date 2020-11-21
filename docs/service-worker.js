@@ -8,7 +8,7 @@ const filesToCache = [
   'pages/404.html'
 ];
 
-const staticCacheName = 'cache-v1.5.4';
+const staticCacheName = 'cache-v1.5.5';
 console.log(staticCacheName);
 
 self.addEventListener('install', event => {
